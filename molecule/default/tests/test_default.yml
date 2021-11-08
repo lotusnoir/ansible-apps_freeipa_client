@@ -1,0 +1,8 @@
+---
+file:
+  /usr/sbin/ipa-client-install:
+    exists: true
+    mode: "0766"
+  /etc/ipa/default.conf:
+    exists: true
+    mode: "0766"

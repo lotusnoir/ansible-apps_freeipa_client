@@ -1,0 +1,101 @@
+---
+- name: Check for freeipa_client binary
+  stat:
+    path: "/usr/sbin/ipa-client-install"
+  changed_when: false
+  register: freeipa_install
+
+- when: not freeipa_install.stat.exists
+  block:
+    # Special taks for debian-11
+    - include_tasks: setup-Debian-11.yml
+      when: ansible_distribution_release == "bullseye"
+
+    - name: Install FreeIPA packages
+      package:
+        name: "{{ freeipa_client_pkgs }}"
+        state: present
+        update_cache: "{{ omit if (ansible_pkg_mgr == 'dnf') else 'yes' }}"
+      delay: 10
+      register: result
+      retries: 3
+      until: result is succeeded
+      when: ansible_distribution_release != "bullseye"
+
+- name: Check for freeipa enrollement
+  stat:
+    path: "/etc/ipa/default.conf"
+  changed_when: false
+  register: freeipa_enroll
+
+- when: not freeipa_enroll.stat.exists
+  block:
+    - name: Check that all requiered ports are open to reach freeipa server
+      wait_for:
+        host: "{{ freeipa_server_fqdn }}"
+        port: "{{ item }}"
+        state: started         # Port should be open
+        delay: 0               # No wait before first check (sec)
+        timeout: 2             # Stop checking after timeout (sec)
+      failed_when: false
+      with_items:
+        - "{{ freeipa_client_ports }}"
+      when: freeipa_client_check_server_connectivity
+
+
+    - name: run client install
+      command: "/usr/sbin/ipa-client-install -U {{ freeipa_client_install_options | join(' ') }}"
+      register: install
+
+
+- when: ansible_distribution_release == "bullseye"
+  block:
+    - name: "BUGFIX for deb11: Ensure session are none"
+      lineinfile:
+        path: /etc/sssd/sssd.conf
+        regexp: '^session_provider ='
+        line: session_provider = none
+        insertafter: '^auth_provider ='
+
+    - name: "BUGFIX for deb11: Service line from default template shouldnt be set"
+      lineinfile:
+        path: /etc/sssd/sssd.conf
+        regexp: '^services = nss'
+        state: absent
+
+    - name: 'BUGFIX for deb11 - Error opening "/etc/apache2/nssdb/pwdfile.txt": No such file or directory'
+      ansible.builtin.file:
+        path: /etc/apache2/nssdb
+        state: directory
+        mode: '0755'
+
+    - name: 'BUGFIX for deb11 - Error opening "/etc/apache2/nssdb/pwdfile.txt": No such file or directory'
+      file:
+        src: "/etc/ipa/nssdb/pwdfile.txt"
+        dest: "/etc/apache2/nssdb/pwdfile.txt"
+        state: link
+
+#- name: "Disablerestart systemd-logind"
+#  service:
+#    name: sssd-sudo.socket
+#    enabled: no
+#  with_items:
+#    - sssd-ssh.socket
+#    - sssd-sudo.socket
+#    - sssd-nss.socket
+#    - sssd-pam.socket
+#    - sssd-pac.socket
+#    - sssd-autofs.socket
+#  when: ansible_distribution_release == "bullseye"
+
+- name: "restart systemd-logind"
+  service:
+    name: systemd-logind
+    state: restarted
+  when: install.changed
+
+- name: "restart sssd"
+  service:
+    name: sssd
+    state: restarted
+  when: install.changed

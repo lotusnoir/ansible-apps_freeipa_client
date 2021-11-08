@@ -1,0 +1,24 @@
+---
+- name: Install FreeIPA required packages
+  package:
+    name: "{{ freeipa_client_pkgs_required }}"
+    state: present
+    update_cache: "{{ omit if (ansible_pkg_mgr == 'dnf') else 'yes' }}"
+  delay: 10
+  register: result
+  retries: 3
+  until: result is succeeded
+
+
+- name: Ensure xz-utils is present
+  package:
+    name: xz-utils
+    state: present
+
+- name: Install deb packages from the internet
+  apt:
+    deb: "{{ item }}"
+  environment:
+    PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  with_items:
+    - "{{ freeipa_client_deb_pkgs }}"
