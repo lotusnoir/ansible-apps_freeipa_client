@@ -1,7 +1,6 @@
 ---
 stages:
   - checks
-  - test
   - changes
   - push
 
@@ -25,25 +24,6 @@ ansible-lint:
   image: lotusnoir/ansible_play
   script:
     - ansible-lint .
-
-
-#######################################################
-## RUN MOLECULE FOR FULL TEST SCENARIO
-#######################################################
-#molecule:
-#  stage: test
-#  image: lotusnoir/molecule_play
-#  services:
-#    - docker:dind
-#  variables:
-#    PY_COLORS: 1
-#  needs:
-#    - yamllint
-#    - ansible-lint
-#  before_script:
-#    - molecule --version
-#  script:
-#    - molecule test
 
 
 ######################################################
