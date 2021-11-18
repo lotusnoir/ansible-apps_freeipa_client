@@ -29,6 +29,7 @@ See [variables](/defaults/main.yml) for more details.
           roles:
             - role: ansible-apps_freeipa_client
 
+
 ## License
 
 This project is licensed under Apache License. See [LICENSE](/LICENSE) for more details.
