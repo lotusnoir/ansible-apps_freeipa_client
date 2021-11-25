@@ -35,7 +35,7 @@ freeipa_client_deb_pkgs:
   - http://ftp.fr.debian.org/debian/pool/main/f/freeipa/freeipa-common_4.9.7-3_all.deb
   - http://ftp.fr.debian.org/debian/pool/main/f/freeipa/python3-ipalib_4.9.7-3_all.deb
   - http://ftp.fr.debian.org/debian/pool/main/f/freeipa/python3-ipaclient_4.9.7-3_all.deb
-  - http://ftp.fr.debian.org/debian/pool/main/f/freeipa/freeipa-client_4.9.7-3_amd64.deb
+  - http://ftp.fr.debian.org/debian/pool/main/f/freeipa/freeipa-client_4.9.7-3+b1_amd64.deb
 ### Buster stable pkgs not working
 #  - http://ftp.fr.debian.org/debian/pool/main/r/rpm/librpmio8_4.14.2.1+dfsg1-1_amd64.deb
 #  - http://ftp.fr.debian.org/debian/pool/main/r/rpm/librpm8_4.14.2.1+dfsg1-1_amd64.deb
