@@ -28,3 +28,5 @@ freeipa_client_ports:
   - 636
   - 88
   - 464
+
+freeipa_client_test_mode: false

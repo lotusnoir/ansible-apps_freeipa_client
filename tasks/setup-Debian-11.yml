@@ -1,6 +1,6 @@
 ---
-- name: Install FreeIPA required packages
-  package:
+- name: "Install FreeIPA required packages"
+  ansible.builtin.package:
     name: "{{ freeipa_client_pkgs_required }}"
     state: present
     update_cache: "{{ omit if (ansible_pkg_mgr == 'dnf') else 'yes' }}"
@@ -10,14 +10,22 @@
   until: result is succeeded
 
 
-- name: Ensure xz-utils is present
-  package:
+- name: "Ensure xz-utils is present"
+  ansible.builtin.package:
     name: xz-utils
     state: present
 
-- name: Install deb packages from the internet
-  apt:
-    deb: "{{ item }}"
+- name: "Copy freeipa deb files"
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /tmp
+    mode: '0644'
+  with_items:
+    - "{{ freeipa_client_deb_pkgs }}"
+
+- name: "Install deb packages from the internet"
+  ansible.builtin.apt:
+    deb: "/tmp/{{ item }}"
   environment:
     PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
   with_items:
