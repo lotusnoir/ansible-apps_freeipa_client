@@ -1,5 +1,5 @@
 ---
-- name: "Install FreeIPA required packages"
+- name: "DEBIAN11: Install FreeIPA required packages"
   ansible.builtin.package:
     name: "{{ freeipa_client_pkgs_required }}"
     state: present
@@ -9,13 +9,12 @@
   retries: 3
   until: result is succeeded
 
-
-- name: "Ensure xz-utils is present"
+- name: "DEBIAN11:  Ensure xz-utils is present"
   ansible.builtin.package:
     name: xz-utils
     state: present
 
-- name: "Copy freeipa deb files"
+- name: "DEBIAN11: Copy freeipa deb files"
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /tmp
@@ -23,7 +22,7 @@
   with_items:
     - "{{ freeipa_client_deb_pkgs }}"
 
-- name: "Install deb packages from the internet"
+- name: "DEBIAN11: Install deb packages from the internet"
   ansible.builtin.apt:
     deb: "/tmp/{{ item }}"
   environment:

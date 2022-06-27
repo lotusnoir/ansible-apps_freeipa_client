@@ -46,7 +46,6 @@
         - "{{ freeipa_client_ports }}"
       when: freeipa_client_check_server_connectivity
 
-
     - name: run client install
       ansible.builtin.command: "/usr/sbin/ipa-client-install -U {{ freeipa_client_install_options | join(' ') }}"
       register: install
