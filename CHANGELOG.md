@@ -4,3 +4,52 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.0.0](https://github.com/lotusnoir/ansible-apps_freeipa_client/compare/0.4.0...1.0.0) - 2023-03-23
+
+### Commits
+
+- add code of conduc and small changes [`5a21047`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/5a2104719feb9b31900a8f28b591b92cbee518f5)
+- add precommit for lint [`13b6aff`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/13b6affc26684ac916752a1b242d3b3aa685c395)
+- fix checks [`7213c64`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/7213c647c8b6c5303156d428316a8ada1065ab9e)
+- add new molecule all scenario [`7dcbf0c`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/7dcbf0c0846873faaf98e9fa3721dcd5428e90f8)
+- split distro for molecule tests on ci [`5faba69`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/5faba697ebc584aec3003493a1e757ade4325162)
+- fix molecule ora9 [`0b051b6`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/0b051b6a9d244d07a4e203249f6de0a7d771b8b0)
+- add ora9 support [`4f207a5`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/4f207a57b43f1d09796abb39ea41d1c275b637a9)
+- fix checks [`e086708`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/e086708109696e927268992b07948b33e45c3e98)
+- fix clone pipeline [`3da8fe2`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/3da8fe2f3c5f38ef71b85579ba9d44a9c5d9c9b9)
+- fix: molecule image and optimize scenario [`0270737`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/0270737856aff19604f797b1b51b8d68cd821b54)
+
+## [0.4.0](https://github.com/lotusnoir/ansible-apps_freeipa_client/compare/0.3.0...0.4.0) - 2022-07-01
+
+### Commits
+
+- minor: add oracleLinux7 support [`7b57f05`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/7b57f0531caadaa9823ca55e8b3a7d3245abb998)
+
+## [0.3.0](https://github.com/lotusnoir/ansible-apps_freeipa_client/compare/0.2.0...0.3.0) - 2022-06-27
+
+### Commits
+
+- minor: add oracleLinux support + little fixes [`d968769`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/d968769a3e68799006c79089546c1f4901c51963)
+
+## [0.2.0](https://github.com/lotusnoir/ansible-apps_freeipa_client/compare/0.1.1...0.2.0) - 2022-06-07
+
+### Commits
+
+- fix: remove unsupported centos8 + minor fixes [`f40f6f6`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/f40f6f6656bcec3dbe7e4a171ff7a8eab72f3b20)
+- fix: wrong .deb name for debian11 packages [`1db85d4`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/1db85d42edda2b2cffdba41e0fa33c2f91541740)
+- fix: update freeipa package version for debian11 [`dc4462e`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/dc4462e0acead66a615ad8af79d8553bec42660f)
+
+## [0.1.1](https://github.com/lotusnoir/ansible-apps_freeipa_client/compare/0.1.0...0.1.1) - 2021-11-18
+
+### Commits
+
+- fix: Changes on README + molecule container names [`72a36cf`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/72a36cf63a8e89b8ddc2f7aa2406a5464e9baf25)
+
+## 0.1.0 - 2021-11-16
+
+### Commits
+
+- fix: add role name on molecule container names to avoid concurrent conflict on runners [`54c4b85`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/54c4b85e081b05381c3373a579b0650c00e31b5d)
+- fix: can't run molecule test on pipleine [`186866a`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/186866aea39ef4018f108478273837e0a7dd9e71)
+- fix molecule error [`9f8a426`](https://github.com/lotusnoir/ansible-apps_freeipa_client/commit/9f8a4266d11ea58fa98726cde871f7c448f17032)
