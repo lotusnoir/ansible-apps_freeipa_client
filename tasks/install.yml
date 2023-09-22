@@ -11,7 +11,7 @@
   block:
     # Special taks for debian-11
     - name: "Include tasks for Debian 11"
-      ansible.builtin.include_tasks: setup-Debian-11.yml
+      ansible.builtin.include_tasks: setup-debian-11.yml
       when: ansible_distribution_release == "bullseye"
 
     - name: Install FreeIPA packages
