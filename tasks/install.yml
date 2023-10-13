@@ -5,7 +5,6 @@
   changed_when: false
   register: freeipa_install
 
-
 - name: "When freeipa isnt installed"
   when: not freeipa_install.stat.exists
   block:
@@ -36,7 +35,7 @@
   block:
     - name: Check that all requiered ports are open to reach freeipa server
       ansible.builtin.wait_for:
-        host: "{{ freeipa_server_fqdn }}"
+        host: "{{ freeipa_client_server_fqdn }}"
         port: "{{ item }}"
         state: started         # Port should be open
         delay: 0               # No wait before first check (sec)

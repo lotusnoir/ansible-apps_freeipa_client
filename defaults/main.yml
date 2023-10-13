@@ -1,17 +1,17 @@
 ---
-company_domain: ""
-freeipa_server_fqdn: ""
-freeipa_server_admin_password: ""
+freeipa_client_domain: ""
+freeipa_client_server_fqdn: ""
+freeipa_client_server_password: ""
 
 freeipa_client_check_server_connectivity: true
 freeipa_client_hostname_enrollment: "{{ inventory_hostname }}"
 freeipa_client_install_options:
-  - "--domain={{ company_domain }}"
-  - "--realm={{ company_domain | upper }}"
-  - "--server={{ freeipa_server_fqdn }}"
+  - "--domain={{ freeipa_client_domain }}"
+  - "--realm={{ freeipa_client_domain | upper }}"
+  - "--server={{ freeipa_client_server_fqdn }}"
   - "--mkhomedir"
   - "-p admin"
-  - "-w {{ freeipa_server_admin_password }}"
+  - "-w {{ freeipa_client_server_password }}"
   - "--no-ntp"
   - "--force-join"
   - "--hostname={{ freeipa_client_hostname_enrollment }}"
