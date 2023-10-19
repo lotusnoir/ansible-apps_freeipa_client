@@ -5,10 +5,9 @@
   changed_when: false
   register: freeipa_install
 
-- name: "When freeipa isnt installed"
-  when: not freeipa_install.stat.exists
+- name: "Install tasks"
+  when: not freeipa_install.stat.exists or freeipa_client_force_install|bool
   block:
-    # Special taks for debian-11
     - name: "Include tasks for Debian 11"
       ansible.builtin.include_tasks: setup-debian-11.yml
       when: ansible_distribution_release == "bullseye"

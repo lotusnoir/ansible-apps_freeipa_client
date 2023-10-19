@@ -1,9 +1,9 @@
 ---
+freeipa_client_force_install: false
+
 freeipa_client_domain: ""
 freeipa_client_server_fqdn: ""
 freeipa_client_server_password: ""
-
-freeipa_client_check_server_connectivity: true
 freeipa_client_hostname_enrollment: "{{ inventory_hostname }}"
 freeipa_client_install_options:
   - "--domain={{ freeipa_client_domain }}"
@@ -11,7 +11,7 @@ freeipa_client_install_options:
   - "--server={{ freeipa_client_server_fqdn }}"
   - "--mkhomedir"
   - "-p admin"
-  - "-w {{ freeipa_client_server_password }}"
+  - "--password={{ freeipa_client_server_password }}"
   - "--no-ntp"
   - "--force-join"
   - "--hostname={{ freeipa_client_hostname_enrollment }}"
@@ -21,9 +21,8 @@ freeipa_client_pkgs:
   - freeipa-common
   - sudo
 
+freeipa_client_check_server_connectivity: true
 freeipa_client_ports:
-  - 80
-  - 443
   - 389
   - 636
   - 88
