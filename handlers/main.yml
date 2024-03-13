@@ -1,10 +1,10 @@
 ---
-- name: "restart systemd-logind"
+- name: "Restart systemd-logind"
   ansible.builtin.service:
     name: systemd-logind
     state: restarted
 
-- name: "restart sssd"
+- name: "Restart sssd"
   ansible.builtin.service:
     name: sssd
     state: restarted
