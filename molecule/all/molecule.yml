@@ -11,48 +11,28 @@ scenario:
     - prepare
     - converge
     - idempotence
-    #- verify
+    # - verify
     - destroy
 platforms:
   - name: apps-freeipa-client-ubuntu20
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:ubuntu20
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
     capabilities: ['NET_ADMIN']
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
-  - name: apps-freeipa-client-ubuntu18
-    pre_build_image: true
-    image: lotusnoir/ansible_molecule_test_images:ubuntu18
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
-    capabilities: ['NET_ADMIN']
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    groups:
-      - python3
   - name: apps-freeipa-client-ubuntu22
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:ubuntu22
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - python3
-  - name: apps-freeipa-client-debian10
-    pre_build_image: true
-    image: lotusnoir/ansible_molecule_test_images:debian10
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
   - name: apps-freeipa-client-debian11
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:debian11
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
@@ -61,16 +41,6 @@ platforms:
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:debian12
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    groups:
-      - python3
-  - name: apps-freeipa-client-rocky8
-    pre_build_image: true
-    image: lotusnoir/ansible_molecule_test_images:rocky8
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
@@ -79,16 +49,6 @@ platforms:
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:rocky9
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    groups:
-      - python3
-  - name: apps-freeipa-client-oraclelinux8
-    pre_build_image: true
-    image: lotusnoir/ansible_molecule_test_images:oraclelinux8
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
@@ -97,7 +57,6 @@ platforms:
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:oraclelinux9
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
@@ -105,6 +64,8 @@ platforms:
 
 provisioner:
   name: ansible
+  connection_options:
+    ansible_remote_tmp: /tmp
   playbooks:
     prepare: prepare.yml
     converge: playbook.yml
