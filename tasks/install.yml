@@ -36,9 +36,9 @@
       ansible.builtin.wait_for:
         host: "{{ freeipa_client_server_fqdn }}"
         port: "{{ item }}"
-        state: started         # Port should be open
-        delay: 0               # No wait before first check (sec)
-        timeout: 2             # Stop checking after timeout (sec)
+        state: started
+        delay: 0
+        timeout: 2
       failed_when: false
       with_items:
         - "{{ freeipa_client_ports }}"
@@ -50,47 +50,33 @@
       changed_when: false
       when: not freeipa_client_test_mode
 
-
 - name: "DEBIAN: Tasks for debian11"
   when: ansible_distribution_release == "bullseye" and not freeipa_client_test_mode
   block:
     - name: "BUGFIX for deb11: Ensure session are none"
       ansible.builtin.lineinfile:
         path: /etc/sssd/sssd.conf
-        regexp: '^session_provider ='
+        regexp: "^session_provider ="
         line: session_provider = none
-        insertafter: '^auth_provider ='
+        insertafter: "^auth_provider ="
 
     - name: "BUGFIX for deb11: Service line from default template shouldnt be set"
       ansible.builtin.lineinfile:
         path: /etc/sssd/sssd.conf
-        regexp: '^services = nss'
+        regexp: "^services = nss"
         state: absent
 
     - name: 'BUGFIX for deb11 - Error opening "/etc/apache2/nssdb/pwdfile.txt": No such file or directory'
       ansible.builtin.file:
         path: /etc/apache2/nssdb
         state: directory
-        mode: '0755'
+        mode: "0755"
 
     - name: 'BUGFIX for deb11 - Error opening "/etc/apache2/nssdb/pwdfile.txt": No such file or directory'
       ansible.builtin.file:
         src: "/etc/ipa/nssdb/pwdfile.txt"
         dest: "/etc/apache2/nssdb/pwdfile.txt"
         state: link
-
-#- name: "Disablerestart systemd-logind"
-#  ansible.builtin.service:
-#    name: sssd-sudo.socket
-#    enabled: no
-#  with_items:
-#    - sssd-ssh.socket
-#    - sssd-sudo.socket
-#    - sssd-nss.socket
-#    - sssd-pam.socket
-#    - sssd-pac.socket
-#    - sssd-autofs.socket
-#  when: ansible_distribution_release == "bullseye"
 
 - name: "Restart systemd-logind"
   ansible.builtin.service:
