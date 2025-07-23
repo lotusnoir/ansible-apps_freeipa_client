@@ -22,6 +22,7 @@
 ## Description
 
 Install and configure freeipa client in order to connect ssh via ldap auth
+
 ## Requirements
 
 none
@@ -39,7 +40,6 @@ See [variables](/defaults/main.yml) for more details.
           gather_facts: true
           roles:
             - role: ansible-apps_freeipa_client
-
 
 ## License
 

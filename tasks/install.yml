@@ -17,10 +17,10 @@
         name: "{{ freeipa_client_pkgs }}"
         state: present
         update_cache: "{{ omit if (ansible_pkg_mgr == 'dnf') else 'yes' }}"
-      register: pkg_result
+      register: __pkg_result
       retries: 12
       delay: 10
-      until: pkg_result is success
+      until: __pkg_result is success
       when: ansible_distribution_release != "bullseye"
 
 - name: Check for freeipa enrollement
